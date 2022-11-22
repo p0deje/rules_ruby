@@ -1,0 +1,16 @@
+macos_instance:
+  image: ghcr.io/cirruslabs/macos-ventura-base:latest
+
+task:
+  name: Examples / Gem (macos-arm64)
+    # matrix:
+    #   - script: echo 'RUBY_VERSION = "2.7.6"' > ruby_version.bzl
+    #   - script: echo 'RUBY_VERSION = "3.0.4"' > ruby_version.bzl
+    #   - script: echo 'RUBY_VERSION = "3.1.2"' > ruby_version.bzl
+    #   - script: echo 'RUBY_VERSION = "jruby-9.3.9."' > ruby_version.bzl
+    #   - script: echo 'RUBY_VERSION = "truffleruby-22.3."' > ruby_version.bzl
+  script:
+    - bazel build ...
+    - bazel run lib/gem:print-version
+    - bazel run :rubocop
+    - bazel test spec/...
